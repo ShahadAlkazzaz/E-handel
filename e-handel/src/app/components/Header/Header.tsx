@@ -1,0 +1,90 @@
+// src/app/components/Header/Header.tsx
+
+'use client';
+
+import Link from 'next/link';
+import { ShoppingCartIcon } from '@heroicons/react/outline';
+import { useCart } from '../../context/CartContext';
+import { useSession, signOut } from 'next-auth/react';
+import { useState } from 'react';
+
+const Header = () => {
+  const { cartCount } = useCart();
+  const { data: session } = useSession();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-50">
+      {/* Top bar */}
+      <div className="bg-rosewater text-center py-1">
+        <div className="container mx-auto flex justify-between items-center text-base md:text-lg text-black header-text font-semibold">
+          <div>
+            <span>10% på ditt första köp som medlem*</span>
+          </div>
+          <div>
+            <Link href="/register" className="text-black">Bli medlem och tjäna poäng</Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Navbar */}
+      <div className="bg-ivory py-4">
+        <div className="container mx-auto flex justify-between items-center header-text font-semibold">
+          <div className="flex space-x-8 text-lg md:text-xl">
+            <Link href="/" className="text-black">Home</Link>
+            <Link href="/about" className="text-black">om oss</Link>
+          </div>
+          <Link href="/" className="text-5xl md:text-6xl font-bold text-marsala modux-text">ModuX</Link>
+          <div className="flex space-x-8 items-center text-lg md:text-xl relative">
+            <Link href="/cart" className="relative text-black">
+              Varukorg
+              <ShoppingCartIcon className="h-6 w-6 text-gray-700 inline ml-2" />
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">
+                {cartCount}
+              </span>
+            </Link>
+            {session ? (
+              <div className="relative">
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="focus:outline-none text-black flex items-center"
+                >
+                  {session.user.firstname} {session.user.lastname}
+                  <svg className="ml-2 h-4 w-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20 border border-gray-200">
+                    <button
+                      onClick={() => signOut()}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Logga ut
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link href="/login" className="text-black">Logga in</Link>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Sub-navbar */}
+      <nav className="bg-pewter py-2">
+        <div className="container mx-auto flex justify-between space-x-8 text-black header-text text-lg md:text-xl font-semibold">
+          <Link href="/categories/Dam" className="text-black">Dam</Link>
+          <Link href="/categories/Herr" className="text-black">Herr</Link>
+          <Link href="/categories/Barn" className="text-black">Barn</Link>
+          <Link href="/categories/Skönhet" className="text-black">Skönhet</Link>
+          <Link href="/categories/Inredning" className="text-black">Inredning</Link>
+          <Link href="/categories/Presenter" className="text-black">Presenter</Link>
+        </div>
+      </nav>
+    </header>
+  );
+};
+
+export default Header;
