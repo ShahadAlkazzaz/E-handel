@@ -10,14 +10,14 @@ import ClientProvider from '@/app/ClientProvider';
 import ClientLayout from '@/app/ClientLayout';
 import Link from 'next/link';
 import { ClipLoader } from 'react-spinners';
-import HeaderStyled from '@/app/components/Header/HeaderStyled'; // Importera HeaderStyled
+import HeaderStyled from '@/app/components/Header/HeaderStyled';
 
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f4f3f1; /* ivory */
-  color: #000; /* default foreground */
+  background-color: #f4f3f1;
+  color: #000;
 `;
 
 const Main = styled.main`
@@ -32,16 +32,16 @@ const Title = styled.h2`
   font-weight: bold;
   margin-bottom: 1.5rem;
   text-transform: capitalize;
-  color: #8f4553; /* marsala */
+  color: #8f4553;
 `;
 
 const NoProductsMessage = styled.p`
   font-size: 1.125rem;
-  color: #4a4a4a; /* gray-700 */
+  color: #4a4a4a;
 `;
 
 const BackButton = styled.button`
-  background-color: #8f4553; /* marsala */
+  background-color: #8f4553;
   color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -68,7 +68,7 @@ const FilterLabel = styled.label`
   font-size: 1rem;
   font-weight: bold;
   margin-right: 0.5rem;
-  color: #8f4553; /* marsala */
+  color: #8f4553;
 `;
 
 const FilterSelect = styled.select`
@@ -77,7 +77,7 @@ const FilterSelect = styled.select`
   border: 1px solid #e2e2e2;
   border-radius: 4px;
   background-color: #fff;
-  color: #8f4553; /* marsala */
+  color: #8f4553;
 `;
 
 const PaginationContainer = styled.div`
@@ -87,8 +87,8 @@ const PaginationContainer = styled.div`
 `;
 
 const PaginationButton = styled.button<{ active?: boolean }>`
-  background-color: ${({ active }) => (active ? '#8f4553' : '#fff')}; /* marsala */
-  color: ${({ active }) => (active ? '#fff' : '#8f4553')}; /* marsala */
+  background-color: ${({ active }) => (active ? '#8f4553' : '#fff')};
+  color: ${({ active }) => (active ? '#fff' : '#8f4553')};
   padding: 0.5rem 1rem;
   border: 1px solid #8f4553;
   border-radius: 4px;
@@ -171,7 +171,7 @@ const CategoryPage = () => {
   return (
     <ClientProvider>
       <ClientLayout>
-        <HeaderStyled /> {/* Använd HeaderStyled här */}
+        <HeaderStyled />
         <PageContainer>
           <Link href="/">
             <BackButton>Tillbaka till startsidan</BackButton>

@@ -158,7 +158,7 @@ const products: Product[] = [
   { id: 21, name: 'Levis®', price: 571, quantity: 1, image: '/images/Levis.png', category: 'Herr' },
   { id: 22, name: 'Tommy Hilfiger', price: 449, quantity: 1, image: '/images/Tommy Hilfiger.png', category: 'Herr' },
   { id: 23, name: 'U.S. Polo Assn', price: 394, quantity: 1, image: '/images/U.S. Polo Assn.png', category: 'Herr' },
-  { id: 24, name: 'INDICODE JEANS', price: 605, quantity: 1, image: '/images/INDICODE JEANS.png', category: 'Herr' },
+  { id: 24, name: 'Jack & Jones', price: 339, quantity: 1, image: '/images/Jack & Jones.png', category: 'Herr' },
 ];
 
 export default function Home() {
@@ -169,9 +169,10 @@ export default function Home() {
   const Women = products.filter(product => product.category === 'Dam');
   const Men = products.filter(product => product.category === 'Herr');
 
+
   return (
     <div className="bg-ivory">
-      <SearchBar />
+      {/* <SearchBar /> */}
       <div className="relative text-center py-16 mb-8 bg-modux parallax" style={{ backgroundImage: 'url(/images/solskydd1.png)' }}>
         <div className="overlay absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60"></div>
         <div className="relative z-10 mt-8 text-white">
