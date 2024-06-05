@@ -4,7 +4,8 @@ const config: Config = {
     content: [
         './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
         './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-        './src/app/**/*.{js,ts,jsx,tsx,mdx}'
+        './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+        './app/**/*.{js,ts,jsx,tsx}', // lägg till denna rad om du använder mappstrukturen från Next.js 13
     ],
     theme: {
         extend: {

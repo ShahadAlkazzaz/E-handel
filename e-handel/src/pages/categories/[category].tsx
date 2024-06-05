@@ -10,6 +10,7 @@ import ClientProvider from '@/app/ClientProvider';
 import ClientLayout from '@/app/ClientLayout';
 import Link from 'next/link';
 import { ClipLoader } from 'react-spinners';
+import HeaderStyled from '@/app/components/Header/HeaderStyled'; // Importera HeaderStyled
 
 const PageContainer = styled.div`
   display: flex;
@@ -170,6 +171,7 @@ const CategoryPage = () => {
   return (
     <ClientProvider>
       <ClientLayout>
+        <HeaderStyled /> {/* Använd HeaderStyled här */}
         <PageContainer>
           <Link href="/">
             <BackButton>Tillbaka till startsidan</BackButton>
