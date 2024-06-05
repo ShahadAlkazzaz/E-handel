@@ -14,99 +14,130 @@ const Checkout = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     setCart([]);  // Töm varukorgen
     localStorage.setItem('cart', JSON.stringify([]));  // Uppdatera lokal lagring
     router.push('/checkout/confirmation');
   };
 
   return (
-    <div className="p-4 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Kassa</h2>
-      {cart.length === 0 ? (
-        <p>Din varukorg är tom.</p>
-      ) : (
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            {cart.map(product => (
-              <div key={product.id} className="relative border p-4 rounded-lg shadow-sm">
-                <Image src={product.image} alt={product.name} width={100} height={100} className="mb-4" />
-                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                <p className="text-gray-700 mb-4">{product.price} kr</p>
-                <p className="text-gray-700 mb-4">Antal: {product.quantity}</p>
-                <p className="text-gray-700 mb-4">Totalt: {product.price * product.quantity} kr</p>
-              </div>
-            ))}
+    <div className="p-8 bg-white shadow-2xl rounded-xl max-w-6xl mx-auto">
+      <h2 className="text-4xl font-bold mb-8 text-gray-800 border-b pb-4">Kassa</h2>
+      <div className="mb-8">
+        <div className="flex justify-between items-center">
+          <div className="flex-1">
+            <div className="space-y-6 mb-8">
+              {cart.map(product => (
+                <div key={product.id} className="flex items-center border p-6 rounded-xl shadow-lg bg-gray-50 hover:shadow-2xl transition-shadow duration-300">
+                  <div className="w-1/4 flex justify-center">
+                    <div className="relative h-36 w-36">
+                      <Image src={product.image} alt={product.name} layout="fill" className="rounded-lg object-contain" />
+                    </div>
+                  </div>
+                  <div className="w-3/4 pl-6">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900">{product.name}</h3>
+                    <p className="text-gray-700 mb-2 text-lg">{product.price} kr</p>
+                    <p className="text-gray-700 mb-2 text-lg">Antal: {product.quantity}</p>
+                    <p className="text-gray-800 font-semibold text-lg">Totalt: {product.price * product.quantity} kr</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="mt-4">
-            <h3 className="text-xl font-semibold mb-4">Total pris: {totalPrice} kr</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-gray-700">Namn</label>
-                <input
-                  type="text"
-                  id="name"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="mt-1 block w-full p-2 border rounded"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="address" className="block text-gray-700">Adress</label>
-                <input
-                  type="text"
-                  id="address"
-                  value={form.address}
-                  onChange={(e) => setForm({ ...form, address: e.target.value })}
-                  className="mt-1 block w-full p-2 border rounded"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-gray-700">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="mt-1 block w-full p-2 border rounded"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="paymentMethod" className="block text-gray-700">Betalningsmetod</label>
-                <select
-                  id="paymentMethod"
-                  value={form.paymentMethod}
-                  onChange={(e) => setForm({ ...form, paymentMethod: e.target.value })}
-                  className="mt-1 block w-full p-2 border rounded"
-                  required
-                >
-                  <option value="card">Kreditkort</option>
-                  <option value="paypal">PayPal</option>
-                  <option value="invoice">Faktura</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="deliveryMethod" className="block text-gray-700">Leveransmetod</label>
-                <select
-                  id="deliveryMethod"
-                  value={form.deliveryMethod}
-                  onChange={(e) => setForm({ ...form, deliveryMethod: e.target.value })}
-                  className="mt-1 block w-full p-2 border rounded"
-                  required
-                >
-                  <option value="standard">Standard</option>
-                  <option value="express">Express</option>
-                </select>
-              </div>
-              <button type="submit" className="bg-marsala text-white py-2 px-4 rounded mt-4">
-                Slutför köp
-              </button>
-            </form>
+          <div className="w-1/3 ml-8">
+            <div className="border p-6 rounded-xl shadow-lg bg-gray-50">
+              <h3 className="text-2xl font-semibold mb-6 text-center">Order Sammanfattning</h3>
+              <ul className="space-y-4 mb-6">
+                {cart.map(product => (
+                  <li key={product.id} className="flex justify-between text-gray-700">
+                    <span>{product.name} x {product.quantity}</span>
+                    <span>{product.price * product.quantity} kr</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="text-xl font-semibold text-gray-900 text-center">Total: {totalPrice} kr</div>
+            </div>
           </div>
-        </>
+        </div>
+      </div>
+      {cart.length > 0 && (
+        <div className="mt-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="border p-6 rounded-xl shadow-lg bg-gray-50">
+              <h3 className="text-2xl font-semibold mb-4">Kundinformation</h3>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-gray-700 font-medium">Namn</label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="mt-1 block w-full p-3 border rounded-lg shadow-sm focus:ring focus:ring-marsala focus:outline-none"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="address" className="block text-gray-700 font-medium">Adress</label>
+                  <input
+                    type="text"
+                    id="address"
+                    value={form.address}
+                    onChange={(e) => setForm({ ...form, address: e.target.value })}
+                    className="mt-1 block w-full p-3 border rounded-lg shadow-sm focus:ring focus:ring-marsala focus:outline-none"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-gray-700 font-medium">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className="mt-1 block w-full p-3 border rounded-lg shadow-sm focus:ring focus:ring-marsala focus:outline-none"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="border p-6 rounded-xl shadow-lg bg-gray-50">
+              <h3 className="text-2xl font-semibold mb-4">Betalningsinformation</h3>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="paymentMethod" className="block text-gray-700 font-medium">Betalningsmetod</label>
+                  <select
+                    id="paymentMethod"
+                    value={form.paymentMethod}
+                    onChange={(e) => setForm({ ...form, paymentMethod: e.target.value })}
+                    className="mt-1 block w-full p-3 border rounded-lg shadow-sm focus:ring focus:ring-marsala focus:outline-none"
+                    required
+                  >
+                    <option value="card">Kreditkort</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="invoice">Faktura</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="deliveryMethod" className="block text-gray-700 font-medium">Leveransmetod</label>
+                  <select
+                    id="deliveryMethod"
+                    value={form.deliveryMethod}
+                    onChange={(e) => setForm({ ...form, deliveryMethod: e.target.value })}
+                    className="mt-1 block w-full p-3 border rounded-lg shadow-sm focus:ring focus:ring-marsala focus:outline-none"
+                    required
+                  >
+                    <option value="standard">Standard</option>
+                    <option value="express">Express</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button type="submit" className="bg-marsala text-white py-3 px-6 rounded-full font-medium hover:bg-marsala-dark transition-colors duration-300 mt-6">
+              Slutför köp
+            </button>
+          </form>
+        </div>
       )}
     </div>
   );

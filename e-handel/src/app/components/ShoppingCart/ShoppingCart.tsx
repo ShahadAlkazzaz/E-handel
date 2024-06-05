@@ -10,27 +10,33 @@ const ShoppingCart = () => {
   const { cart, addToCart, removeFromCart } = useCart();
 
   return (
-    <div className="p-4 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Varukorg</h2>
+    <div className="p-8 bg-white shadow-2xl rounded-xl max-w-6xl mx-auto">
+      <h2 className="text-4xl font-bold mb-8 text-gray-800 border-b pb-4">Varukorg</h2>
       {cart.length === 0 ? (
-        <p>Din varukorg är tom.</p>
+        <p className="text-gray-600 text-center text-lg">Din varukorg är tom.</p>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-6">
             {cart.map(product => (
-              <div key={product.id} className="relative border p-4 rounded-lg shadow-sm">
-                <Image src={product.image} alt={product.name} width={100} height={100} className="mb-4" />
-                <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                <p className="text-gray-700 mb-4">{product.price} kr</p>
-                <div className="flex items-center mb-4">
-                  <button onClick={() => removeFromCart(product.id)} className="px-2 py-1 bg-red-500 text-white rounded">-</button>
-                  <span className="mx-2">{product.quantity}</span>
-                  <button onClick={() => addToCart(product)} className="px-2 py-1 bg-green-500 text-white rounded">+</button>
+              <div key={product.id} className="flex items-center border p-6 rounded-xl shadow-lg bg-gray-50 hover:shadow-2xl transition-shadow duration-300">
+                <div className="w-1/4 flex justify-center">
+                  <div className="relative h-36 w-36">
+                    <Image src={product.image} alt={product.name} layout="fill" className="rounded-lg object-contain" />
+                  </div>
                 </div>
-                <p className="text-gray-700 mb-4">Totalt: {product.quantity * product.price} kr</p>
+                <div className="w-3/4 pl-6">
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900">{product.name}</h3>
+                  <p className="text-gray-700 mb-2 text-lg">{product.price} kr</p>
+                  <div className="flex items-center mb-4">
+                    <button onClick={() => removeFromCart(product.id)} className="px-3 py-1 bg-marsala text-white rounded-full hover:bg-red-700 transition-colors duration-300">-</button>
+                    <span className="mx-4 text-gray-900 font-semibold text-lg">{product.quantity}</span>
+                    <button onClick={() => addToCart(product)} className="px-3 py-1 bg-marsala text-white rounded-full hover:bg-green-700 transition-colors duration-300">+</button>
+                  </div>
+                  <p className="text-gray-800 font-semibold text-lg">Totalt: {product.quantity * product.price} kr</p>
+                </div>
                 <button
                   onClick={() => removeFromCart(product.id)}
-                  className="absolute top-0 right-0 bg-red-500 text-white p-2 rounded"
+                  className="ml-auto bg-marsala text-white p-3 rounded-full hover:bg-red-700 transition-colors duration-300"
                 >
                   <FaTrash />
                 </button>
@@ -38,8 +44,8 @@ const ShoppingCart = () => {
             ))}
           </div>
           {cart.length > 0 && (
-            <div className="mt-4">
-              <Link href="/checkout" className="bg-marsala text-white py-2 px-4 rounded inline-block">
+            <div className="mt-10 flex justify-center">
+              <Link href="/checkout" className="bg-marsala text-white py-4 px-12 rounded-full text-xl font-semibold hover:bg-blue-700 transition-colors duration-300">
                 Gå till kassan
               </Link>
             </div>
