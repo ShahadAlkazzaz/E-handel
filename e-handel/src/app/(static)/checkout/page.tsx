@@ -5,7 +5,7 @@ import { useCart } from '../../context/CartContext';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import Link from 'next/link'; // Import Link from 'next/link'
+import Link from 'next/link';
 
 const Checkout = () => {
   const { cart, setCart } = useCart();

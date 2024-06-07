@@ -19,7 +19,6 @@ const products: Product[] = [
   { id: 14, name: 'Produkt 14', price: 199, quantity: 1, image: '/images/STANDARD LENGTH -JEANS.png', category: 'Dam' },
   { id: 15, name: 'Produkt 15', price: 199, quantity: 1, image: '/images/VIKELLY SINGLET - Linne.png', category: 'Dam' },
   { id: 16, name: 'Produkt 16', price: 199, quantity: 1, image: '/images/VISIVO - BYXOR.png', category: 'Dam' },
-  // Lägg till fler produkter med olika kategorier
 ];
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {

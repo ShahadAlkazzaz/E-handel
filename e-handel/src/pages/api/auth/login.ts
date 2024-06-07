@@ -32,7 +32,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // Här kan du generera och skicka tillbaka en token eller session
+    // Här kan generera och skicka tillbaka en token eller session
     // För enkelhetens skull skickar vi tillbaka användarens ID och namn
     return res.status(200).json({ id: user.id, name: user.firstname });
   } catch (error) {
